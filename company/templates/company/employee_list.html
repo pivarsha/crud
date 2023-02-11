@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<section class="text-gray-700 body-font">
+    <div class="container px-5 py-24 mx-auto flex flex-wrap">
+        <h2>Total Number Of Employees :- {{total_employees}}</h2>
+        <div class="w-full mb-6 py-6 flex justify-between items-center border-b border-gray-200">
+            <div>
+                <h1 class="text-4xl text-gray-800">Leads</h1>
+
+                <div>
+                    <button>
+                        <a class="text-gray-500 hover:text-blue-500" href="{% url 'register:create-employee' %}">
+                            View Employees
+                        </a>
+                    </button>
+                </div>
+
+            </div>
+
+            <div>
+                <button>
+                    <a class="text-gray-500 hover:text-blue-500" href="{% url 'register:create-employee' %}">
+                        Create a new Employees
+                    </a>
+                </button>
+            </div>
+
+
+        </div>
+
+
+        <div class="flex flex-col w-full">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Name
+                                    </th>
+
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Address
+                                    </th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Email
+                                    </th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Position
+                                    </th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Company
+                                    </th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Contact Detail
+                                    </th>
+                                    <th scope="col" class="relative px-6 py-3">
+                                        <span class="sr-only">Edit</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for employee in employees %}
+                                <tr class="bg-white">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        {{ employee.name }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ employee.address }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ employee.email }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ employee.position }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ employee.company }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ employee.contact_detail }}
+                                    </td>
+
+
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <a href="{% url 'register:detail-employee'  employee.pk %}" class="text-indigo-600 hover:text-indigo-900">Edit
+
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% if is_paginated %}
+                        <div class="pagination">
+                            <span class="step-links">
+                              {% if page_obj.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ page_obj.previous_page_number }}"><strong>Previous</strong></a>
+                              {% endif %}
+                      
+                              <span class="current-page-number">
+                                {{ page_obj.number }}
+                              </span>
+                      
+                              {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}"> <strong>next</strong> </a>
+                                <a href="?page={{ paginator.num_pages }}"><strong>last</strong> &raquo;</a>
+                              {% endif %}
+                            </span>
+                          </div>
+                        {% endif %}
+                      
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
